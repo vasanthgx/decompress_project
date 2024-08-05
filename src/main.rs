@@ -6,7 +6,7 @@ fn main() {
     std::process::exit(real_main());
 }
 
-fun real_main()->i32 {
+fn real_main()->i32 {
     let args: Vec<_> = std::env::args().collect();
     if args.len() < 2 {
         println!("Usage: {} <filename>", args[0]);
@@ -19,7 +19,7 @@ fun real_main()->i32 {
     for i in 0..archive.len(){
         let mut file = archive.by_index(i).unwrap();
 
-        let outpath = match file.enclosded_name(){
+        let outpath = match file.enclosed_name(){
             Some(path) => path.to_owned(),
             None => continue,
         };
@@ -35,7 +35,7 @@ fun real_main()->i32 {
             println!("File {} extracted to \"{}\" " , i, outpath.display());
             fs::create_dir_all(&outpath).unwrap();
         }else{
-            println!("File {} extracted to \"{}\" ({} bytes)", i, outpath.display(), file.size);
+            println!("File {} extracted to \"{}\" ({} bytes)", i, outpath.display(), file.size());
             if let Some(p) = outpath.parent(){
                 if !p.exists(){
                     fs::create_dir_all(&p).unwrap();
